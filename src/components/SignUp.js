@@ -1,6 +1,7 @@
 import {React, useState} from 'react';
 
 import Button from './Button';
+import Loader from './Loader';
 import './SignUp.css';
 
 function SignUp() {
@@ -9,6 +10,8 @@ function SignUp() {
     email: '',
     password: ''
   })
+
+  const [btnClick, setBtnClick] = useState(false)
 
   const handleEmailChange = (e) => {
     setContact({
@@ -25,6 +28,7 @@ function SignUp() {
   }
 
   const handleFormSubmit = (e) => {
+    setBtnClick(true)
     e.preventDefault()
     console.log(`E-Mail: ${contact.email}`)
     console.log(`Password: ${contact.password}`)
@@ -94,6 +98,7 @@ function SignUp() {
           handleFormSubmit={handleFormSubmit} 
           btnText="SIGN IN"
           />
+        {btnClick && <Loader />}
       </form>
     </div>
   );
