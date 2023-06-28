@@ -45,7 +45,7 @@ function SignUp() {
 
   useEffect(() => {
     if(btnClick === true){
-      axios.post('http://localhost:5000/', contact)
+      axios.post('https://mumble-server.onrender.com/', contact)
       .then((res) => {
       console.log(`type of received data is ${typeof(res.data)}`)
       setApiData(res.data)
