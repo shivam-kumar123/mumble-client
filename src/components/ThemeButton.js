@@ -12,9 +12,9 @@ function ThemeButton({setTheme}) {
 
   return (
     <div>
-        <label class="switch">
+        <label className="switch">
             <input type="checkbox" onClick={handleTheme}/>
-            <span class="slider"></span>
+            <span className="slider"></span>
         </label>
     </div>
   )

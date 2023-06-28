@@ -1,4 +1,5 @@
-import {React, useState} from 'react';
+import {React, useState, useEffect} from 'react';
+import axios from "axios"
 
 import Button from './Button';
 import Loader from './Loader';
@@ -10,10 +11,16 @@ function SignUp() {
     email: '',
     password: ''
   })
-
   const [btnClick, setBtnClick] = useState(false)
+  const [apiRequest, setApiRequest] = useState(false)
+  const [apiData, setApiData] = useState('')
+  const [displayText, setDisplayText] = useState(false)
 
   const handleEmailChange = (e) => {
+    setBtnClick(false)
+    setApiRequest(false)
+    setDisplayText(false)
+    setApiData('')
     setContact({
       ...contact,
       email: e.target.value
@@ -21,6 +28,10 @@ function SignUp() {
   }
 
   const handlePasswordChange = (e) => {
+    setBtnClick(false)
+    setApiRequest(false)
+    setDisplayText(false)
+    setApiData('')
     setContact({
       ...contact,
       password: e.target.value
@@ -30,9 +41,35 @@ function SignUp() {
   const handleFormSubmit = (e) => {
     setBtnClick(true)
     e.preventDefault()
-    console.log(`E-Mail: ${contact.email}`)
-    console.log(`Password: ${contact.password}`)
   }
+
+  useEffect(() => {
+    if(btnClick === true){
+      axios.post('http://localhost:5000/', contact)
+      .then((res) => {
+      console.log(`type of received data is ${typeof(res.data)}`)
+      setApiData(res.data)
+      console.log(`apiData: ${apiData}`)
+      setApiRequest(true)
+      console.log(res.data)
+    })
+    .catch((err) => {
+      console.error(err)
+    })
+    }
+  }, [btnClick])
+
+  useEffect(() => {
+    let timeout;
+    if (apiRequest) {
+      timeout = setTimeout(() => {
+        if(apiRequest === true) {
+          setDisplayText(true)
+        }
+      }, 6000);
+    }
+    return () => clearTimeout(timeout);
+  }, [apiRequest]);
 
   return (
     <div className="container">
@@ -99,6 +136,7 @@ function SignUp() {
           btnText="SIGN IN"
           />
         {btnClick && <Loader />}
+        {displayText && apiData}
       </form>
     </div>
   );
