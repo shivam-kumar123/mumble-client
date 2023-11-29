@@ -7,7 +7,7 @@ import './App.css';
 
 const App = () => {
 
-  // 0 --> white and 1 --> dark
+  // 0 --> white and 1 --> dark , nice
   const [theme, setTheme] = useState(1)
 
 
