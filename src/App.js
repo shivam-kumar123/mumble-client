@@ -5,7 +5,7 @@ import ThemeButton from './components/ThemeButton';
 
 import './App.css';
 
-function App() {
+const App = () => {
 
   // 0 --> white and 1 --> dark
   const [theme, setTheme] = useState(1)
